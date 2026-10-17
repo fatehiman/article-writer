@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+
+# Never part of a deploy package (see deploy/deploy.sh).
+reference-docs/ export-ignore
+*.md export-ignore

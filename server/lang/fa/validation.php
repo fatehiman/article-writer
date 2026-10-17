@@ -1,0 +1,57 @@
+<?php
+
+return [
+    'accepted' => ':attribute باید پذیرفته شود.',
+    'array' => ':attribute باید یک فهرست باشد.',
+    'between' => [
+        'numeric' => ':attribute باید بین :min و :max باشد.',
+        'string' => ':attribute باید بین :min و :max نویسه باشد.',
+        'array' => ':attribute باید بین :min و :max مورد داشته باشد.',
+    ],
+    'boolean' => ':attribute باید درست یا نادرست باشد.',
+    'confirmed' => 'تکرار :attribute یکسان نیست.',
+    'date' => ':attribute تاریخ معتبر نیست.',
+    'date_format' => ':attribute با قالب :format جور نیست.',
+    'email' => ':attribute باید یک ایمیل معتبر باشد.',
+    'exists' => ':attribute انتخاب‌شده معتبر نیست.',
+    'in' => ':attribute انتخاب‌شده معتبر نیست.',
+    'integer' => ':attribute باید عدد صحیح باشد.',
+    'json' => ':attribute باید JSON معتبر باشد.',
+    'max' => [
+        'numeric' => ':attribute نباید بیشتر از :max باشد.',
+        'string' => ':attribute نباید بیشتر از :max نویسه باشد.',
+        'array' => ':attribute نباید بیشتر از :max مورد داشته باشد.',
+    ],
+    'min' => [
+        'numeric' => ':attribute باید حداقل :min باشد.',
+        'string' => ':attribute باید حداقل :min نویسه باشد.',
+        'array' => ':attribute باید حداقل :min مورد داشته باشد.',
+    ],
+    'not_in' => ':attribute انتخاب‌شده معتبر نیست.',
+    'numeric' => ':attribute باید عدد باشد.',
+    'password' => [
+        'letters' => ':attribute باید حداقل یک حرف داشته باشد.',
+        'mixed' => ':attribute باید حرف بزرگ و کوچک داشته باشد.',
+        'numbers' => ':attribute باید حداقل یک عدد داشته باشد.',
+        'symbols' => ':attribute باید حداقل یک نماد داشته باشد.',
+        'uncompromised' => ':attribute در نشت اطلاعات دیده شده. رمز دیگری انتخاب کنید.',
+    ],
+    'regex' => 'قالب :attribute معتبر نیست.',
+    'required' => ':attribute لازم است.',
+    'required_with' => 'وقتی :values پر است، :attribute لازم است.',
+    'string' => ':attribute باید متن باشد.',
+    'timezone' => ':attribute باید منطقه‌ی زمانی معتبر باشد.',
+    'unique' => 'این :attribute قبلاً استفاده شده.',
+    'url' => ':attribute باید یک آدرس معتبر باشد.',
+
+    'attributes' => [
+        'name' => 'نام', 'username' => 'نام کاربری', 'password' => 'رمز عبور', 'email' => 'ایمیل',
+        'current_password' => 'رمز فعلی', 'title_list_id' => 'فهرست عنوان', 'titles' => 'عنوان‌ها',
+        'word_count' => 'طول مقاله', 'language' => 'زبان', 'text_agent_id' => 'AI متن', 'image_agent_id' => 'AI تصویر',
+        'images' => 'تصویرها', 'image_count' => 'تعداد تصویر', 'timezone' => 'منطقه‌ی زمانی',
+        'schedule_times' => 'ساعت‌های اجرا', 'schedule_days' => 'روزها', 'schedule_type' => 'تکرار',
+        'webhook_url' => 'آدرس وب‌هوک', 'retry_limit' => 'تعداد تلاش', 'retry_delay' => 'فاصله‌ی تلاش‌ها',
+        'amount' => 'مبلغ', 'price' => 'قیمت', 'model' => 'مدل', 'width' => 'عرض', 'height' => 'ارتفاع',
+        'currency' => 'واحد پول', 'categories' => 'دسته‌بندی‌ها', 'instructions' => 'دستور اضافه',
+    ],
+];

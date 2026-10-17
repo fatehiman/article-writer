@@ -1,0 +1,55 @@
+<?php
+
+return [
+    // UI languages. Add a folder in lang/ and a line here. 'theme' picks the layout
+    // (resources/views/themes/<theme>): RTL languages use their own theme.
+    'ui' => [
+        'en' => ['native' => 'English', 'dir' => 'ltr', 'theme' => 'ltr'],
+        'fa' => ['native' => 'فارسی', 'dir' => 'rtl', 'theme' => 'rtl'],
+    ],
+
+    // Languages an article can be written in: code => [English name, native name].
+    'articles' => [
+        'en' => ['English', 'English'],
+        'fa' => ['Persian', 'فارسی'],
+        'ar' => ['Arabic', 'العربية'],
+        'tr' => ['Turkish', 'Türkçe'],
+        'de' => ['German', 'Deutsch'],
+        'fr' => ['French', 'Français'],
+        'es' => ['Spanish', 'Español'],
+        'pt' => ['Portuguese', 'Português'],
+        'it' => ['Italian', 'Italiano'],
+        'nl' => ['Dutch', 'Nederlands'],
+        'ru' => ['Russian', 'Русский'],
+        'uk' => ['Ukrainian', 'Українська'],
+        'pl' => ['Polish', 'Polski'],
+        'cs' => ['Czech', 'Čeština'],
+        'ro' => ['Romanian', 'Română'],
+        'hu' => ['Hungarian', 'Magyar'],
+        'el' => ['Greek', 'Ελληνικά'],
+        'sv' => ['Swedish', 'Svenska'],
+        'no' => ['Norwegian', 'Norsk'],
+        'da' => ['Danish', 'Dansk'],
+        'fi' => ['Finnish', 'Suomi'],
+        'he' => ['Hebrew', 'עברית'],
+        'ur' => ['Urdu', 'اردو'],
+        'ps' => ['Pashto', 'پښتو'],
+        'ku' => ['Kurdish', 'Kurdî'],
+        'az' => ['Azerbaijani', 'Azərbaycanca'],
+        'hy' => ['Armenian', 'Հայերեն'],
+        'ka' => ['Georgian', 'ქართული'],
+        'hi' => ['Hindi', 'हिन्दी'],
+        'bn' => ['Bengali', 'বাংলা'],
+        'ta' => ['Tamil', 'தமிழ்'],
+        'zh' => ['Chinese (Simplified)', '简体中文'],
+        'zh-TW' => ['Chinese (Traditional)', '繁體中文'],
+        'ja' => ['Japanese', '日本語'],
+        'ko' => ['Korean', '한국어'],
+        'vi' => ['Vietnamese', 'Tiếng Việt'],
+        'th' => ['Thai', 'ไทย'],
+        'id' => ['Indonesian', 'Bahasa Indonesia'],
+        'ms' => ['Malay', 'Bahasa Melayu'],
+        'tl' => ['Filipino', 'Filipino'],
+        'sw' => ['Swahili', 'Kiswahili'],
+    ],
+];

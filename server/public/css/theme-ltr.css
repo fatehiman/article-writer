@@ -1,0 +1,53 @@
+/* LTR theme: light pastels (violet / pink / sky), top navigation bar. */
+:root {
+    --aw-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --aw-bg: #f5f7fc;
+    --aw-card: #ffffff;
+    --aw-card-head: #fafbfe;
+    --aw-border: #e6e9f2;
+    --aw-text: #3a3f55;
+    --aw-muted: #7b8199;
+    --aw-link: #6f5fe0;
+    --aw-radius: 14px;
+    --aw-shadow: 0 2px 10px rgba(60, 70, 110, .04);
+    --aw-shadow-hover: 0 6px 18px rgba(60, 70, 110, .09);
+    --aw-primary: #8b7cf6;
+    --aw-primary-hover: #7a6aee;
+    --aw-focus: #c6bdfc;
+    --aw-focus-ring: rgba(139, 124, 246, .15);
+    --aw-chip-on: #6a55d8;
+    --aw-chip-on-bg: #efecff;
+    --aw-chip-on-line: #d6cffd;
+    --aw-code: #7a55c9;
+    --aw-code-bg: #f8f7ff;
+
+    --violet: #8b7cf6; --violet-bg: #efecff;
+    --mint:   #3fbf9a; --mint-bg:   #e3f7f0; --mint-line: #bfe9da; --mint-dark: #257a61;
+    --amber:  #e6a23c; --amber-bg:  #fdf3e1; --amber-line: #f4dcae; --amber-dark: #8d5a0c;
+    --sky:    #4aa3df; --sky-bg:    #e5f2fb; --sky-line: #c4e1f5; --sky-dark: #276d9d;
+    --rose:   #e87a9a; --rose-bg:   #fdebf0; --rose-line: #f5c9d6; --rose-dark: #b34466;
+    --peach:  #ef9163; --peach-bg:  #fdeee5;
+    --gray:   #8a90a6; --gray-bg:   #eef0f5;
+}
+
+.aw-nav { background: rgba(255, 255, 255, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--aw-border); }
+.aw-nav .navbar-brand { color: var(--aw-text); }
+.aw-logo { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 10px;
+    background: linear-gradient(135deg, #b3a8ff, #f6a8c4); color: #fff; font-size: 1.15rem; }
+.aw-logo-lg { width: 56px; height: 56px; border-radius: 16px; font-size: 1.9rem; }
+
+.aw-link { display: flex; align-items: center; gap: .5rem; color: var(--aw-text) !important; border-radius: 10px;
+    padding: .4rem .65rem !important; background: none; border: 0; }
+.aw-link:hover, .aw-link.active { background: var(--tone-bg); }
+.aw-link.active { font-weight: 600; }
+.aw-ico { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--tone-bg); color: var(--tone); }
+.aw-link.active .aw-ico { background: var(--tone); color: #fff; }
+.aw-dropdown .aw-link { margin: 0 .35rem; width: auto; }
+.navbar .dropdown-toggle::after { margin-inline-start: .1rem; }
+
+.aw-login-bg { background: linear-gradient(135deg, #f1efff 0%, #fdf0f5 50%, #eaf6fb 100%); }
+
+@media (max-width: 1199.98px) {
+    .aw-link { margin-bottom: 2px; }
+}
