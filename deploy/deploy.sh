@@ -74,4 +74,4 @@ for i in 1 2 3 4 5; do
   sleep 1
 done
 echo "https://$DOMAIN/up -> $code"
-curl -s -o /dev/null -w "https://$DOMAIN/mainadmin -> %{http_code}\n" "https://$DOMAIN/mainadmin"
+echo "https://$DOMAIN/mainadmin -> $(curl -s -o /dev/null -w '%{http_code}' "https://$DOMAIN/mainadmin")"
