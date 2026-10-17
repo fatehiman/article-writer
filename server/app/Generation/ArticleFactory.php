@@ -34,7 +34,7 @@ class ArticleFactory
                 $article->update([
                     'status' => Article::FAILED,
                     'error' => $service->title_list_id
-                        ? 'All titles of the list are used. Add new titles or allow re-use of titles.'
+                        ? 'The title list has no active title (empty, or every weight is 0).'
                         : 'The service has no title list.',
                 ]);
             }
@@ -49,18 +49,20 @@ class ArticleFactory
         return $article;
     }
 
-    /** Least-used title first; unused titles only, unless the service allows re-use. */
+    /**
+     * Weighted fair rotation: pick the title that is most behind its share, i.e. the lowest
+     * used_count / weight. Over time each title gets weight / (sum of weights) of the articles.
+     * Ties: higher weight first, then the one used longest ago, then list order. Weight 0 = paused.
+     */
     private function pickTitle(Service $service): ?Title
     {
         if (! $service->title_list_id) {
             return null;
         }
-        $query = Title::query()->where('title_list_id', $service->title_list_id)->lockForUpdate();
-        if (! $service->reuse_titles) {
-            $query->where('used_count', 0);
-        }
-        $title = $query->orderBy('used_count')->orderByRaw('last_used_at is null desc')->orderBy('last_used_at')
-            ->orderBy('id')->first();
+        $title = Title::query()->where('title_list_id', $service->title_list_id)->where('weight', '>', 0)
+            ->lockForUpdate()
+            ->orderByRaw('used_count / weight')->orderByDesc('weight')
+            ->orderByRaw('last_used_at is null desc')->orderBy('last_used_at')->orderBy('id')->first();
         if ($title) {
             $title->forceFill(['used_count' => $title->used_count + 1, 'last_used_at' => now()])->save();
         }

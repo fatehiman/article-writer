@@ -66,7 +66,7 @@ class ServiceController extends Controller
         $service->load(['titleList', 'tone', 'textAgent', 'imageAgent', 'destinations']);
         $articles = $service->articles()->latest('id')->limit(15)->get();
         $sizes = ImageSize::query()->whereIn('id', $service->imageSizeIds())->get()->keyBy('id');
-        $titlesLeft = $service->titleList ? $service->titleList->titles()->where('used_count', 0)->count() : 0;
+        $titlesLeft = $service->titleList ? $service->titleList->titles()->where('weight', '>', 0)->count() : 0;
 
         return view('services.show', compact('service', 'articles', 'sizes', 'titlesLeft'));
     }
@@ -208,7 +208,6 @@ class ServiceController extends Controller
                 'name' => $v['name'],
                 'is_active' => $request->boolean('is_active'),
                 'title_list_id' => (int) $v['title_list_id'],
-                'reuse_titles' => $request->boolean('reuse_titles'),
                 'categories' => $categories,
                 'word_count' => (int) $v['word_count'],
                 'tone_id' => $v['tone_id'] ?? null,

@@ -156,3 +156,20 @@ code { color: var(--aw-code); }
 .btn.icon.busy { pointer-events: none; }
 .btn.icon.busy .ico, .btn.icon.busy .bi { animation: aw-spin .7s linear infinite; }
 @keyframes aw-spin { to { transform: rotate(360deg); } }
+
+/* Title list table */
+.aw-name { max-width: 460px; }
+.aw-scroll-lg { max-height: 70vh; overflow: auto; }
+.aw-scroll-lg thead th { position: sticky; top: 0; z-index: 1; }
+.aw-table-search { width: 220px; }
+.aw-title-table [data-title] { min-width: 240px; }
+.aw-title-table td:first-child { width: 3rem; }
+.aw-row-paused [data-title] { color: var(--aw-muted); text-decoration: line-through; }
+@media (max-width: 575.98px) {
+    .aw-title-table [data-title] { min-width: 120px; }
+    .aw-title-table th:first-child, .aw-title-table td:first-child,
+    .aw-title-table th:nth-child(5), .aw-title-table td:nth-child(5) { display: none; }
+    .aw-title-table td, .aw-title-table th { padding-inline: .3rem; }
+    .aw-title-table .aw-num { width: 4rem; }
+    .aw-table-search { width: 100%; order: 5; }
+}

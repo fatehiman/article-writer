@@ -67,6 +67,107 @@
         });
     }
 
+    // ---------- title list table ----------
+    const tbody = $('#titleRows');
+    if (tbody) {
+        const tableForm = $('#titleTableForm');
+        const filter = $('#rowFilter');
+        const totals = $('#rowTotals');
+        const fmt = (n) => (Math.round(n * 10) / 10).toLocaleString(document.documentElement.lang);
+        const weightOf = (tr) => Math.max(0, parseFloat($('[data-weight]', tr).value) || 0);
+
+        const addRow = (row, focus) => {
+            const tr = document.createElement('tr');
+            if (row.id) tr.dataset.id = row.id;
+            tr.innerHTML = `<td class="text-center text-muted small" data-n></td>
+                <td><input class="form-control form-control-sm" data-title maxlength="500" dir="auto"></td>
+                <td class="text-center"><input class="form-control form-control-sm aw-num mx-auto" type="number" data-weight min="0" max="1000" step="any"></td>
+                <td class="text-center small" data-share></td>
+                <td class="text-center small text-muted">${row.used || 0}</td>
+                <td class="text-end"><button type="button" class="btn icon sm tone-red" data-del title="${tbody.dataset.delete}" aria-label="${tbody.dataset.delete}">
+                    <svg class="ico" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button></td>`;
+            const t = $('[data-title]', tr);
+            t.value = row.title || '';
+            t.placeholder = tbody.dataset.titlePh;
+            $('[data-weight]', tr).value = row.weight ?? 1;
+            tbody.appendChild(tr);
+            if (focus) t.focus();
+        };
+
+        const refresh = () => {
+            const rows = $$('tr', tbody);
+            const sum = rows.reduce((s, tr) => s + weightOf(tr), 0);
+            let active = 0;
+            rows.forEach((tr, i) => {
+                const w = weightOf(tr);
+                if (w > 0) active++;
+                $('[data-n]', tr).textContent = i + 1;
+                const share = $('[data-share]', tr);
+                share.textContent = w > 0 && sum > 0 ? fmt((w / sum) * 100) + '%' : tbody.dataset.paused;
+                share.classList.toggle('text-muted', w === 0);
+                tr.classList.toggle('aw-row-paused', w === 0);
+            });
+            $('#rowCount').textContent = rows.length;
+            totals.textContent = totals.dataset.template.replace(':n', rows.length).replace(':active', active).replace(':sum', fmt(sum));
+        };
+
+        const applyFilter = () => {
+            const q = filter.value.trim().toLowerCase();
+            $$('tr', tbody).forEach((tr) => { tr.hidden = q !== '' && !$('[data-title]', tr).value.toLowerCase().includes(q); });
+        };
+
+        const existing = () => new Set($$('[data-title]', tbody).map((i) => i.value.trim().toLowerCase()));
+
+        const start = JSON.parse(tbody.dataset.rows || '[]');
+        start.forEach((r) => addRow(r));
+        if (start.length === 0) addRow({ weight: 1 });
+        refresh();
+
+        tbody.addEventListener('input', refresh);
+        tbody.addEventListener('click', (e) => {
+            const del = e.target.closest('[data-del]');
+            if (del) { del.closest('tr').remove(); refresh(); }
+        });
+        // Enter in the last title box adds a new row (handy when typing many titles).
+        tbody.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.matches('[data-title]')) {
+                e.preventDefault();
+                const tr = e.target.closest('tr');
+                if (tr === tbody.lastElementChild) { addRow({ weight: 1 }, true); refresh(); } else { $('[data-title]', tr.nextElementSibling).focus(); }
+            }
+        });
+        filter.addEventListener('input', applyFilter);
+        $('#addRow').addEventListener('click', () => { filter.value = ''; applyFilter(); addRow({ weight: 1 }, true); refresh(); });
+
+        $('#pasteForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const seen = existing();
+            const w = Math.max(0, parseFloat($('#pasteWeight').value) || 0);
+            // Drop the empty starter row before adding pasted rows.
+            $$('tr', tbody).forEach((tr) => { if (!tr.dataset.id && $('[data-title]', tr).value.trim() === '') tr.remove(); });
+            $('#pasteText').value.split(/\r?\n/).map((l) => l.trim()).filter(Boolean).forEach((t) => {
+                if (!seen.has(t.toLowerCase())) { seen.add(t.toLowerCase()); addRow({ title: t, weight: w }); }
+            });
+            $('#pasteText').value = '';
+            refresh();
+            bootstrap.Modal.getInstance($('#pasteModal')).hide();
+        });
+
+        $('#weightAllForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const w = $('#allWeight').value;
+            $$('tr', tbody).filter((tr) => !tr.hidden).forEach((tr) => { $('[data-weight]', tr).value = w; });
+            refresh();
+            bootstrap.Modal.getInstance($('#weightAllModal')).hide();
+        });
+
+        tableForm.addEventListener('submit', () => {
+            $('#rowsJson').value = JSON.stringify($$('tr', tbody)
+                .map((tr) => ({ id: tr.dataset.id ? parseInt(tr.dataset.id, 10) : null, title: $('[data-title]', tr).value.trim(), weight: weightOf(tr) }))
+                .filter((r) => r.title !== ''));
+        });
+    }
+
     // ---------- service form ----------
     const form = $('#serviceForm');
     if (!form) return;

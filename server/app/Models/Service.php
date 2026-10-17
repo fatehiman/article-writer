@@ -18,7 +18,7 @@ class Service extends Model
     public const MAX_RETRIES = 10;
 
     protected $fillable = [
-        'name', 'is_active', 'title_list_id', 'reuse_titles', 'categories', 'word_count', 'tone_id', 'language',
+        'name', 'is_active', 'title_list_id', 'categories', 'word_count', 'tone_id', 'language',
         'instructions', 'text_agent_id', 'image_agent_id', 'images', 'timezone', 'schedule_times', 'schedule_type',
         'schedule_days', 'webhook_url', 'webhook_secret', 'webhook_embed_images', 'retry_limit', 'retry_delay',
     ];
@@ -29,7 +29,6 @@ class Service extends Model
     {
         return [
             'is_active' => 'boolean',
-            'reuse_titles' => 'boolean',
             'webhook_embed_images' => 'boolean',
             'categories' => 'array',
             'images' => 'array',

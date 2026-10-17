@@ -122,14 +122,28 @@ class GenerationTest extends TestCase
         $this->assertSame(Delivery::FAILED, $delivery->fresh()->status);
     }
 
-    public function test_titles_run_out_without_reuse(): void
+    public function test_titles_get_their_weighted_share(): void
     {
         $this->fakeAi();
+        $list = $this->service->titleList;
+        $list->syncRows([
+            ['title' => 'A', 'weight' => 1], ['title' => 'B', 'weight' => 1], ['title' => 'C', 'weight' => 2],
+            ['title' => 'Paused', 'weight' => 0],
+        ]);
         $factory = app(ArticleFactory::class);
-        $factory->start($this->service);
-        $factory->start($this->service);
-        $third = $factory->start($this->service);
-        $this->assertSame(Article::FAILED, $third->status);
+        for ($i = 0; $i < 8; $i++) {
+            $factory->start($this->service);
+        }
+        $used = $list->titles()->pluck('used_count', 'title')->all();
+        ksort($used);
+        $this->assertSame(['A' => 2, 'B' => 2, 'C' => 4, 'Paused' => 0], $used);
+    }
+
+    public function test_no_active_title_fails_the_article(): void
+    {
+        $this->service->titleList->syncRows([['title' => 'Only', 'weight' => 0]]);
+        $article = app(ArticleFactory::class)->start($this->service);
+        $this->assertSame(Article::FAILED, $article->status);
     }
 
     public function test_wallet_is_charged_and_blocks_when_empty(): void

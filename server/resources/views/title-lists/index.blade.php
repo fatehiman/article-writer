@@ -22,14 +22,14 @@
             <table class="table aw-table align-middle mb-0">
                 <thead><tr>
                     <th>{{ __('ui.name') }}</th><th class="text-center">{{ __('ui.titles') }}</th>
-                    <th class="text-center">{{ __('ui.unused') }}</th><th class="text-center">{{ __('ui.services') }}</th><th></th>
+                    <th class="text-center">{{ __('ui.active_titles') }}</th><th class="text-center">{{ __('ui.services') }}</th><th></th>
                 </tr></thead>
                 <tbody>
                 @foreach ($lists as $list)
                     <tr>
                         <td><span class="aw-ico-box sm tone-mint me-2"><i class="bi bi-card-list"></i></span><a href="{{ route('title-lists.edit', $list) }}" class="fw-medium text-body">{{ $list->name }}</a></td>
                         <td class="text-center">{{ $list->titles_count }}</td>
-                        <td class="text-center"><span class="badge aw-badge tone-{{ $list->unused_count > 0 ? 'mint' : 'rose' }}">{{ $list->unused_count }}</span></td>
+                        <td class="text-center"><span class="badge aw-badge tone-{{ $list->active_count > 0 ? 'mint' : 'rose' }}">{{ $list->active_count }}</span></td>
                         <td class="text-center">{{ $list->services_count }}</td>
                         <td class="text-end text-nowrap">
                             {{ icon_btn('plus', __('ui.new_service_with_list'), 'green', 'href="'.route('services.create', ['title_list' => $list->id]).'"', 'a', 'sm') }}

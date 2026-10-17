@@ -43,8 +43,7 @@
                     <dd class="col-sm-8">
                         @if ($service->titleList)
                             <a href="{{ route('title-lists.edit', $service->titleList) }}">{{ $service->titleList->name }}</a>
-                            <span class="badge aw-badge tone-{{ $titlesLeft > 0 ? 'mint' : 'rose' }}">{{ __('ui.n_unused', ['n' => $titlesLeft]) }}</span>
-                            @if ($service->reuse_titles) <span class="badge aw-badge tone-sky">{{ __('ui.reuse_on') }}</span> @endif
+                            <span class="badge aw-badge tone-{{ $titlesLeft > 0 ? 'mint' : 'rose' }}">{{ __('ui.n_active_titles', ['n' => $titlesLeft]) }}</span>
                         @else — @endif
                     </dd>
                     <dt class="col-sm-4">{{ __('ui.categories') }}</dt>

@@ -96,6 +96,35 @@ class PanelTest extends TestCase
         $this->assertNotNull(Service::findByToken($s->api_token));
     }
 
+    public function test_title_table_add_edit_delete_keeps_usage(): void
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user)->post(route('title-lists.store'), [
+            'name' => 'Psy',
+            'rows' => json_encode([['id' => null, 'title' => 'One', 'weight' => 1], ['id' => null, 'title' => 'Two', 'weight' => 2.5],
+                ['id' => null, 'title' => 'one', 'weight' => 9]]), // duplicate (case) is dropped
+        ])->assertRedirect(route('title-lists.index'));
+        $list = $user->titleLists()->firstOrFail();
+        $this->assertSame(['One' => 1.0, 'Two' => 2.5], $list->titles()->pluck('weight', 'title')->map(fn ($w) => (float) $w)->all());
+
+        $one = $list->titles()->where('title', 'One')->first();
+        $one->update(['used_count' => 3]);
+        $this->actingAs($user)->put(route('title-lists.update', $list), [
+            'name' => 'Psy',
+            'rows' => json_encode([['id' => $one->id, 'title' => 'One edited', 'weight' => 0], ['id' => null, 'title' => 'Three', 'weight' => 1]]),
+        ])->assertRedirect();
+        $rows = $list->titles()->orderBy('id')->get();
+        $this->assertSame(['One edited', 'Three'], $rows->pluck('title')->all());   // "Two" deleted
+        $this->assertSame(3, $rows[0]->used_count);                                  // usage kept on edit
+        $this->assertSame(0.0, (float) $rows[0]->weight);
+
+        $this->actingAs($user)->put(route('title-lists.update', $list), ['name' => 'Psy', 'rows' => '[]'])
+            ->assertSessionHasErrors('rows');
+        $this->actingAs($user)->put(route('title-lists.update', $list), [
+            'name' => 'Psy', 'rows' => json_encode([['title' => 'X', 'weight' => -1]]),
+        ])->assertSessionHasErrors('rows.0.weight');
+    }
+
     public function test_quick_title_list_from_modal(): void
     {
         $user = User::factory()->create();

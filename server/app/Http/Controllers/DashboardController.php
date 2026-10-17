@@ -20,7 +20,7 @@ class DashboardController extends Controller
             'active_services' => $user->services()->where('is_active', true)->count(),
             'articles' => (clone $articles)->where('status', Article::READY)->count(),
             'failed' => (clone $articles)->where('status', Article::FAILED)->where('created_at', '>', now()->subDays(7))->count(),
-            'titles_left' => \App\Models\Title::query()->where('used_count', 0)
+            'titles_left' => \App\Models\Title::query()->where('weight', '>', 0)
                 ->whereHas('titleList', fn ($q) => $q->where('user_id', $user->id))->count(),
             'deliveries_failed' => Delivery::query()->where('status', Delivery::FAILED)
                 ->whereHas('article', fn ($q) => $q->where('user_id', $user->id))->where('created_at', '>', now()->subDays(7))->count(),

@@ -86,10 +86,6 @@
                         {{ icon_btn('plus', __('ui.new_title_list'), 'green', 'data-bs-toggle="modal" data-bs-target="#titleListModal"') }}
                     </div>
                     <div class="form-text mb-3">{{ __('ui.title_list_help') }}</div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="reuse_titles" name="reuse_titles" value="1" @checked(old('reuse_titles', $service->reuse_titles))>
-                        <label class="form-check-label" for="reuse_titles">{{ __('ui.reuse_titles') }}</label>
-                    </div>
                     <label class="form-label" for="categories">{{ __('ui.categories') }}</label>
                     <textarea class="form-control" id="categories" name="categories" rows="4" placeholder="{{ __('ui.categories_ph') }}">{{ $cats }}</textarea>
                     <div class="form-text">{{ __('ui.categories_help') }}</div>

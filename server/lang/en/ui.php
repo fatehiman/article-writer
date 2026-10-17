@@ -31,7 +31,7 @@ return [
 
     // dashboard
     'hello' => 'Hello, :name', 'active_services' => 'Active services', 'ready_articles' => 'Ready articles',
-    'unused_titles' => 'Unused titles', 'balance' => 'Balance', 'failed_7d' => 'Failed (7 days)',
+    'balance' => 'Balance', 'failed_7d' => 'Failed (7 days)',
     'failed_deliveries_7d' => 'Failed sends (7 days)', 'next_runs' => 'Next runs', 'no_upcoming' => 'No run is planned.',
     'recent_articles' => 'Recent articles', 'no_articles' => 'No articles yet.', 'articles_today' => 'Articles today',
     'income_30d' => 'Charged (30 days)',
@@ -45,8 +45,8 @@ return [
     'extra_instructions' => 'Extra instructions for the AI',
     'extra_instructions_ph' => 'e.g. Write for beginners. Add a short FAQ at the end.',
     'titles_categories' => 'Titles and categories', 'title_list' => 'Title list', 'new_title_list' => 'New title list',
-    'title_list_help' => 'Each article is written from one title of this list. Titles that were not used yet go first.',
-    'reuse_titles' => 'When all titles are used, start again from the least used ones',
+    'title_list_help' => 'Each article is written from one title of this list. Titles are re-used; each gets its share of articles by its weight.',
+
     'categories' => 'Categories', 'categories_ph' => "Psychology\nHealth\nFamily",
     'categories_help' => 'One per line. The AI picks the best one for each article. Leave empty for no category.',
     'ai_and_images' => 'AI and images', 'text_agent' => 'Writer (text AI)', 'image_agent' => 'Image AI',
@@ -69,7 +69,7 @@ return [
     'generate_now' => 'Write an article now', 'pause' => 'Pause', 'activate' => 'Activate', 'duplicate' => 'Duplicate (opens a copy to edit)',
     'confirm_delete_service' => 'Delete this service? Its articles stay, but nothing new will be made.',
     'generation_started' => 'The article is being written. This takes 1-3 minutes.',
-    'article' => 'Article', 'n_unused' => ':n unused', 'reuse_on' => 're-use on', 'next_run' => 'Next run', 'last_run' => 'last run',
+    'article' => 'Article', 'next_run' => 'Next run', 'last_run' => 'last run',
     'api_token' => 'API token', 'api_token_help' => 'Apps without a webhook can read the articles of this service with this token.',
     'rotate_token' => 'Make a new token', 'confirm_rotate' => 'The old value stops working at once. Continue?',
     'token_rotated' => 'A new token was made. Update your apps.', 'endpoints' => 'Endpoints',
@@ -77,10 +77,16 @@ return [
     'rotate_secret' => 'Make a new secret', 'secret_rotated' => 'A new webhook secret was made.',
 
     // title lists
-    'title_lists_help' => 'A title list is a named group of titles, e.g. "Psychology" with 100 titles. A service uses one list.',
+    'title_lists_help' => 'A title list is a named group of titles, e.g. "Psychology" with 100 titles. Each title has a weight: its share of the articles. A service uses one list.',
+    'active_titles' => 'Active titles', 'n_active_titles' => ':n active', 'weight' => 'Weight', 'share' => 'Share',
+    'weight_help' => 'Weight = how often a title is used. Weights 1, 1, 2 give 25%, 25%, 50% of the articles. 0 = paused. The title that is most behind its share is used next, so titles are re-used again and again.',
+    'add_row' => 'Add a title', 'paste_many' => 'Paste many titles', 'add_rows' => 'Add to the table', 'weight_for_all' => 'Weight for these titles',
+    'paste_dupes' => 'Titles that are already in the table are skipped', 'set_all_weights' => 'Set the weight of all rows',
+    'set_all_weights_help' => 'Only the rows you see now (after the search filter) are changed.', 'title_row_ph' => 'Type a title. Enter = new row',
+    'weight_totals' => ':n titles · :active active · total weight :sum',
     'no_title_lists' => 'You have no title lists yet.', 'edit_title_list' => 'Edit title list', 'titles' => 'Titles',
     'title_list_name_ph' => 'e.g. Psychology', 'titles_ph' => "How sleep changes your mood\nWhy we procrastinate\n...",
-    'titles_help' => 'One title per line. Lines:', 'unused' => 'Unused', 'used' => 'Used', 'usage' => 'Usage', 'title' => 'Title',
+    'titles_help' => 'One title per line. Lines:', 'used' => 'Used', 'usage' => 'Usage', 'title' => 'Title',
     'reset_usage' => 'Mark all titles as unused again', 'new_service_with_list' => 'New service with this list',
 
     // articles
@@ -107,7 +113,7 @@ return [
 
     // docs
     'docs_flow' => 'How it works', 'full_docs' => 'Full documentation',
-    'flow1' => 'Make a <a href=":url">title list</a>: a name and many titles, one per line.',
+    'flow1' => 'Make a <a href=":url">title list</a>: a name and many titles, each with a weight (its share of the articles).',
     'flow2' => 'Optional: add <a href=":url">destinations</a> (WordPress, Telegram, Instagram, Facebook, LinkedIn).',
     'flow3' => '<a href=":url">Make a service</a>: choose the title list, categories, length, tone, language, AI, images and the schedule.',
     'flow4' => 'At each run time, the AI writes one article from the next unused title, and draws the images.',

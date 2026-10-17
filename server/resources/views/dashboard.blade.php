@@ -11,7 +11,7 @@
     @foreach ([
         ['bi-lightning-charge', 'amber', $stats['active_services'].' / '.$stats['services'], __('ui.active_services'), route('services.index')],
         ['bi-file-earmark-check', 'mint', $stats['articles'], __('ui.ready_articles'), route('articles.index', ['status' => 'ready'])],
-        ['bi-card-list', 'sky', $stats['titles_left'], __('ui.unused_titles'), route('title-lists.index')],
+        ['bi-card-list', 'sky', $stats['titles_left'], __('ui.active_titles'), route('title-lists.index')],
         ['bi-wallet2', 'peach', money(auth()->user()->wallet_balance), __('ui.balance'), route('wallet')],
         ['bi-exclamation-octagon', 'rose', $stats['failed'], __('ui.failed_7d'), route('articles.index', ['status' => 'failed'])],
         ['bi-send-x', 'violet', $stats['deliveries_failed'], __('ui.failed_deliveries_7d'), route('articles.index')],

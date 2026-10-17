@@ -8,8 +8,11 @@ Live: **https://articles.peppasoft.com** (home page is "under construction" on p
 ## What it does
 
 - **Two roles:** `admin` and `customer`. There is no sign-up; admins create users.
-- **Title lists:** a customer saves named groups of titles (e.g. "Psychology" with 100 titles). Each article is
-  written from the next unused title of the list.
+- **Title lists:** a customer saves named groups of titles (e.g. "Psychology" with 100 titles) in an editable
+  table (add / edit / delete rows, search, "paste many", "set all weights"). Each title has a **weight**: its share
+  of the articles over time (weights 1, 1, 2 → 25%, 25%, 50%; 0 = paused). Titles are re-used forever: each run picks
+  the title that is most behind its share (lowest `used_count / weight`). The table is posted as one JSON field
+  (`rows`), so big lists do not hit PHP's `max_input_vars`.
 - **Services:** a service says *what* to write and *when*: title list, categories (the AI picks the best one),
   length in words, tone, language, extra instructions, text AI, 0–10 images (each with an admin-defined size),
   run times (HH:MM) + repeat (every day / days of the week / days of the month) in a time zone.
@@ -40,7 +43,7 @@ starts `queue:work --stop-when-empty`.
 |---|---|
 | `app/Ai/` | AI drivers (`Drivers/*`), `AiManager`, `ImageProcessor` (crop to exact size, JPEG) |
 | `config/ai.php` | list of AI drivers, kinds, price units |
-| `app/Generation/` | `ArticleFactory` (picks a title, makes the article row), `ArticleGenerator` (prompt, images, wallet) |
+| `app/Generation/` | `ArticleFactory` (picks a title by weight, makes the article row), `ArticleGenerator` (prompt, images, wallet) |
 | `app/Publishing/` | `Publisher` interface, `Drivers/*` (webhook, wordpress, telegram, instagram, facebook, linkedin), `DeliveryDispatcher` (send + retries), `Payload` (the JSON format) |
 | `config/publishers.php` | list of publish drivers |
 | `app/Support/Schedule.php` | next run time of a service |
