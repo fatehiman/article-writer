@@ -6,6 +6,10 @@
 - Deploy only with `bash deploy/deploy.sh` (ger1, user `articles`, app `/mnt/ger_hd1/www/articles/app`,
   docroot `app/public`). It deploys the last commit. `reference-docs/` and `*.md` are never deployed.
 - UI rules: icon-only buttons with tooltip (`icon_btn()` helper) and soft tones; dialog/form buttons keep text.
+  Placeholders are light gray (`--aw-placeholder`) so they never look like typed text. Number fields are small:
+  `.aw-num` (one box) or `.aw-num-group` (box + unit); put short number fields in one sentence with `.aw-inline-nums`
+  instead of side-by-side columns with long labels.
+- After a CSS/JS change, raise the `?v=` number in `partials/head.blade.php` / the layouts.
 - Every UI text goes through `__('ui.key')`; add the key to **both** `lang/en/ui.php` and `lang/fa/ui.php`.
 - RTL languages have their own theme (`resources/views/themes/rtl`, `public/css/theme-rtl.css`). Keep both themes
   working; shared component styles are in `public/css/base.css`.

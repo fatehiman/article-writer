@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label" for="word_count">{{ __('ui.word_count') }}</label>
-                            <div class="input-group">
+                            <div class="input-group aw-num-group">
                                 <input class="form-control" type="number" id="word_count" name="word_count" min="100" max="6000" step="50" value="{{ old('word_count', $service->word_count) }}" required>
                                 <span class="input-group-text">{{ __('ui.words') }}</span>
                             </div>
@@ -217,18 +217,13 @@
                         <label class="form-check-label" for="webhook_embed_images">{{ __('ui.embed_images') }}</label>
                     </div>
 
-                    <div class="row g-3 mt-1">
-                        <div class="col-sm-6">
-                            <label class="form-label" for="retry_limit">{{ __('ui.retry_limit') }}</label>
-                            <input class="form-control" type="number" id="retry_limit" name="retry_limit" min="0" max="{{ \App\Models\Service::MAX_RETRIES }}" value="{{ old('retry_limit', $service->retry_limit) }}" required>
-                        </div>
-                        <div class="col-sm-6">
-                            <label class="form-label" for="retry_delay">{{ __('ui.retry_delay') }}</label>
-                            <div class="input-group">
-                                <input class="form-control" type="number" id="retry_delay" name="retry_delay" min="1" max="1440" value="{{ old('retry_delay', $service->retry_delay) }}" required>
-                                <span class="input-group-text">{{ __('ui.minutes') }}</span>
-                            </div>
-                        </div>
+                    {{-- One sentence with small number boxes: "Retry [5] times (max 10), wait [3] minutes between tries." --}}
+                    <label class="form-label mt-3" for="retry_limit">{{ __('ui.retry_label') }}</label>
+                    <div class="aw-inline-nums">
+                        <input class="form-control aw-num" type="number" id="retry_limit" name="retry_limit" min="0" max="{{ \App\Models\Service::MAX_RETRIES }}" value="{{ old('retry_limit', $service->retry_limit) }}" required>
+                        <span>{{ __('ui.retry_times', ['max' => \App\Models\Service::MAX_RETRIES]) }}</span>
+                        <input class="form-control aw-num" type="number" id="retry_delay" name="retry_delay" min="1" max="1440" value="{{ old('retry_delay', $service->retry_delay) }}" required aria-label="{{ __('ui.retry_delay') }}">
+                        <span>{{ __('ui.retry_minutes') }}</span>
                     </div>
                     <div class="form-text">{{ __('ui.retry_help') }}</div>
                 </div>

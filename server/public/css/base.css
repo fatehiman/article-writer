@@ -87,6 +87,12 @@ a { color: var(--aw-link); }
 .form-control:focus, .form-select:focus, .form-check-input:focus { border-color: var(--aw-focus); box-shadow: 0 0 0 .2rem var(--aw-focus-ring); }
 .form-check-input:checked { background-color: var(--aw-primary); border-color: var(--aw-primary); }
 .input-group-text { background: var(--aw-card-head); color: var(--aw-muted); }
+/* Placeholders must look like hints, not like typed text. */
+.form-control::placeholder { color: var(--aw-placeholder); opacity: 1; }
+/* Small boxes for numbers. */
+.form-control.aw-num { width: 5.5rem; flex: 0 0 auto; text-align: center; }
+.aw-num-group { max-width: 12rem; }
+.aw-inline-nums { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 
 /* Alerts */
 .aw-alert-ok { background: var(--mint-bg); border: 1px solid var(--mint-line); color: var(--mint-dark); border-radius: 12px; }

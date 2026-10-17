@@ -63,6 +63,7 @@ return [
     'webhook' => 'Webhook', 'webhook_url' => 'Webhook URL', 'webhook_help_title' => 'Webhook format and instructions',
     'embed_images' => 'Also put the image files in the webhook (base64). The request gets bigger.',
     'retry_limit' => 'Retries if sending fails (0-10)', 'retry_delay' => 'Wait between retries',
+    'retry_label' => 'Retry if sending fails', 'retry_times' => 'times (max :max), wait', 'retry_minutes' => 'minutes between tries.',
     'retry_help' => 'Used for the webhook and for every destination.',
     'retries' => 'Retries', 'retry_summary' => ':n retries, :m min apart',
     'generate_now' => 'Write an article now', 'pause' => 'Pause', 'activate' => 'Activate', 'duplicate' => 'Duplicate (opens a copy to edit)',

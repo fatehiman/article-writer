@@ -41,7 +41,7 @@
             <a class="rt-link tone-gray {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
                 <span class="rt-ico"><i class="bi bi-person-gear"></i></span>{{ __('ui.profile') }}
             </a>
-            @include('partials.locale-switch', ['class' => 'rt-link tone-gray'])
+            @include('partials.locale-switch', ['class' => 'rt-link tone-sky', 'box' => 'rt-ico'])
             <form method="post" action="{{ route('logout') }}" class="m-0">
                 @csrf
                 <button class="rt-link tone-rose w-100" type="submit"><span class="rt-ico"><i class="bi bi-box-arrow-left"></i></span>{{ __('ui.logout') }}</button>
